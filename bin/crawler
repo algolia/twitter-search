@@ -1,0 +1,15 @@
+#! /usr/bin/env ruby
+
+require File.expand_path(File.join(File.dirname(__FILE__), '..', 'config', 'environment'))
+
+daemon = TweetStream::Daemon.new('crawler', :log_output => true)
+daemon.on_inited do
+  ActiveRecord::Base.connection.reconnect!
+  ActiveRecord::Base.logger = Logger.new(File.join(Rails.root, 'log/stream.log'), 'w+')
+end
+daemon.on_error do |message|
+  puts "Error: #{message}"
+end
+daemon.sample do |status|
+  Handle.create_from_status(status)
+end

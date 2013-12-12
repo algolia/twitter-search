@@ -15,6 +15,11 @@ gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'simple_form'
 gem 'thin'
+gem 'tweetstream'
+gem 'delayed_job_active_record'
+gem 'hidemyass', github: 'jassa/hidemyass'
+gem 'algoliasearch-rails'
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
