@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20131212131816) do
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
 
-  create_table "handles", id: false, force: true do |t|
+  create_table "handles", force: true do |t|
     t.string  "screen_name",     limit: 32,             null: false
     t.string  "name",            limit: 32
     t.string  "description"

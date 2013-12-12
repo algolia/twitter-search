@@ -1,6 +1,6 @@
 class CreateHandles < ActiveRecord::Migration
   def change
-    create_table :handles, id: false do |t|
+    create_table :handles do |t|
       t.string :screen_name, null: false, limit: 32
       t.string :name, limit: 32
       t.string :description, limit: 255
