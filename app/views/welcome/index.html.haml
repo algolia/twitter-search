@@ -2,6 +2,12 @@
   %h1.text-center
     Twitter Search
 
+  #tagline
+    %p
+      Twitter handles search that
+      %span.label.label-default just
+      work.
+
   #social.hidden-xs
     %iframe{id: "gh-fork", src: "http://ghbtns.com/github-btn.html?user=algolia&repo=twitter-search&type=fork", allowtransparency: "true", frameborder: "0", scrolling: "0", width: "53px", height: "20px"}
     %iframe{id: "gh-start", src: "http://ghbtns.com/github-btn.html?user=algolia&repo=twitter-search&type=watch&count=true", allowtransparency: "true", frameborder: "0", scrolling: "0", width: "110px", height: "20px"}
@@ -15,7 +21,11 @@
           %input.autocomplete{autocomplete: 'off', placeholder: 'Twitter handle, name, profile description...', type: 'text', spellcheck: 'false'}
         .searchbutton
           %i.glyphicon.glyphicon-search
-        #hits
+        #hits  
+
+  %p.text-center
+    %span.label.label-warning.text-small NOT READY YET
+    Crawl in progress...
 
 :javascript
   $(document).ready(function() {

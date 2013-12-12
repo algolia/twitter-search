@@ -20,9 +20,11 @@
 }
 
 html, body, main {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Ubuntu', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   text-rendering: optimizeLegibility;
   font-weight: 300;
+  color: white;
+  font-size: 16px;
 }
 
 html {
@@ -31,10 +33,6 @@ html {
 
 body {
   background: transparent;
-}
-
-a, a:visited {
-  color: black;
 }
 
 h1, h2, h3, h4 {
@@ -50,6 +48,11 @@ h1, h2, h3, h4 {
 
 #page {
   max-width: 600px;
+}
+
+#tagline {
+  margin-top: 20px;
+  text-align: center
 }
 
 #social {
@@ -81,7 +84,7 @@ h1, h2, h3, h4 {
     border-top-right-radius: 3px;
     border-top-left-radius: 3px;
     max-width: 100%;
-    margin: 0px auto;
+    margin: 0px auto 20px auto;
   }
 
   .search_box {
@@ -159,6 +162,7 @@ h1, h2, h3, h4 {
     margin-top: 10px;
     z-index: 2;
     background: white;
+    color: #444;
 
     .hit {
       background-color: #ffffff;
