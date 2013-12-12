@@ -4,6 +4,8 @@ class Handle < ActiveRecord::Base
   include AlgoliaSearch
   algoliasearch per_environment: true, auto_index: false, auto_remove: false do
     attributesToIndex [:screen_name, :name, :description, :followers_count]
+    separatorsToIndex '_'
+    customRanking ['desc(followers_count)']
   end
 
   def self.create_from_status(status)

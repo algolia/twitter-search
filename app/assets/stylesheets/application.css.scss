@@ -8,6 +8,201 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require_self
  *= require_tree .
+ *= require_self
  */
+
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Ubuntu'), url(https://themes.googleusercontent.com/static/fonts/ubuntu/v4/vRvZYZlUaogOuHbBTT1SNevvDin1pK8aKteLpeZ5c0A.woff) format('woff');
+}
+
+html, body, main {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  text-rendering: optimizeLegibility;
+  font-weight: 300;
+}
+
+html {
+  background: #002131 url('https://abs.twimg.com/images/themes/theme15/bg.png') top left no-repeat;
+}
+
+body {
+  background: transparent;
+}
+
+a, a:visited {
+  color: black;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Ubuntu', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: white;
+}
+
+.text-mini {
+  font-size: 0.4em;
+}
+
+#page {
+  width: 600px;
+}
+
+#search-panel {
+  padding-top: 50px;
+
+  .search-form {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+    display: block;
+    line-height: normal;
+    color: #333;
+  }
+
+  .search_box-wrapper {
+    padding: 10px 15px;
+    font-size: 1em;
+    background-color: #506A78;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+    max-width: 100%;
+    margin: 0px auto;
+  }
+
+  .search_box {
+    margin: 0px 0 0 0;
+    padding: 0 0 0 0;
+    position: relative;
+    height: 45px;
+  }
+
+  #inputfield {
+    margin-right: 56px;
+  }
+
+  #inputfield input {
+    width: 100%;
+    height: 45px;
+    display: block;
+    border: 1px solid #cfcfcf;
+    color: #000;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    -webkit-appearance: none;
+    padding: 10px 13px 10px 13px;
+    line-height: 23px;
+    float: left;
+    font-size: 1em;
+    background-color: white;
+    -webkit-rtl-ordering: logical;
+    -webkit-user-select: text;
+    cursor: auto;
+    margin: 0em;
+    border-radius: 4px 0px 0px 4px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 300;
+  }
+  .search_box #inputfield input:focus {
+    outline-width: 0px;
+    border: 1px solid #999;
+  }
+  .search_box #inputfield input:hover {
+    border: 1px solid #999;
+  }
+  .search_box_shadow {
+    -webkit-box-shadow: 0px 0px 2px 0px #2E61E4;
+      -moz-box-shadow: 0px 0px 2px 0px #2E61E4;
+      box-shadow: 0px 0px 2px 0px #2E61E4;
+  }
+  .search_box .searchbutton {
+    cursor: pointer;
+    display: inline-block;
+    padding: 0px;
+    width: 56px;
+    height: 45px;
+    margin: 0px 0 0 -1px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    background-color: #FFFFFF;
+    border: 1px solid #999;
+    text-align: center;
+    color: #506A78;
+  }
+
+  .searchbutton {
+    [class^="glyphicon-"], [class*=" glyphicon-"] {
+      display:inline-block;
+      margin-top: 10px;
+      vertical-align: middle;
+      font-size: 20px;
+    }
+  }
+
+  #hits {
+    font-size: 1em;
+    margin-right: 56px;
+    margin-top: 10px;
+    z-index: 2;
+    background: white;
+
+    .hit {
+      background-color: #ffffff;
+      background-color: rgb(255, 255, 255);
+      font-size: 14px;
+      padding: 5px 10px;
+      margin-bottom: 5px;
+
+      em {
+        font-weight: bold;
+        font-style: normal;
+      }
+
+      .name {
+        font-size: 1.6em;
+      }
+
+      .screen_name {
+        font-size: 1.6em;
+      }
+
+      .description {
+        font-style: italic;
+      }
+    }
+
+    .hit.odd {
+      background-color: #fafafa;
+      background-color: rgb(250, 250, 250);
+    }
+
+    .hit:hover, .hit.active {
+      background-color: #e9f0ff;
+      background-color: rgb(233, 240, 255);
+    }
+
+  }
+}
+
+footer {
+  margin-top: 50px;
+  z-index: 1;
+  font-size: 12px;
+  color: #ccc;
+
+  hr {
+    border: none;
+    border-top: 1px solid #506A78;
+    margin: 5px;
+  }
+}
+
+#forkongithub a{background:#600;color:#fff;text-decoration:none;font-family:arial, sans-serif;text-align:center;font-weight:bold;padding:5px 40px;font-size:16px;line-height:32px;position:relative;transition:0.5s;}#forkongithub a:hover{background:#060;color:#fff;}#forkongithub a::before,#forkongithub a::after{content:"";width:100%;display:block;position:absolute;top:1px;left:0;height:1px;background:#fff;}#forkongithub a::after{bottom:1px;top:auto;}@media screen and (min-width:800px){#forkongithub{position:absolute;display:block;top:0;right:0;width:200px;overflow:hidden;height:200px;}#forkongithub a{width:300px;position:absolute;top:60px;right:-70px;transform:rotate(45deg);-webkit-transform:rotate(45deg);box-shadow:4px 4px 10px rgba(0,0,0,0.5);}}

@@ -1,0 +1,17 @@
+#search-panel
+  %h1.text-center
+    Twitter Search
+
+  .search_box-wrapper
+    .search_box
+      %form#search-form{method: "get", action: '#', onsubmit: 'return false;'}
+        #inputfield
+          %input.autocomplete{autocomplete: 'off', placeholder: 'Twitter handle, name, profile description...', type: 'text', spellcheck: 'false'}
+        .searchbutton
+          %i.glyphicon.glyphicon-search
+        #hits
+
+:javascript
+  $(document).ready(function() {
+    new TwitterSearch('#{ENV['ALGOLIASEARCH_APPLICATION_ID']}', '#{ENV['ALGOLIASEARCH_API_KEY_RO']}', '#{Handle.index_name}');
+  });

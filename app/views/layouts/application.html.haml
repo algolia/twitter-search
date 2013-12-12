@@ -2,14 +2,16 @@
 %html
   %head
     %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
-    %title= content_for?(:title) ? yield(:title) : 'Twitterhandlesearch'
-    %meta{:name => "description", :content => "#{content_for?(:description) ? yield(:description) : 'Twitterhandlesearch'}"}
-    = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
-    = javascript_include_tag "application", "data-turbolinks-track" => true
-    = csrf_meta_tags
+    %title= content_for?(:title) ? yield(:title) : 'Twitter Search powered by Algolia'
+    = stylesheet_link_tag "application", media: "all"
+    = javascript_include_tag "application"
   %body
-    %header
-      = render 'layouts/navigation'
-    %main{:role => "main"}
+    %main#page{:role => "main"}
       = render 'layouts/messages'
       = yield
+
+    %footer.text-center
+      %hr
+      Made with <i class="text-danger">&hearts;</i> in Paris,
+      powered by
+      = link_to image_tag("//d3ibatyzauff7b.cloudfront.net/assets/algolia128x40.png", style: 'height: 1em; display: inline;', alt: 'Algolia'), "http://www.algolia.com", onclick: "_gaq.push(['_link', 'http://www.algolia.com']); return false;", title: 'Hosted full-text, numerical, faceted search'
