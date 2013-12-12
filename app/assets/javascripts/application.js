@@ -140,9 +140,11 @@
         res +=  '<div class="' + classes.join(' ') + '" data-id="' + hit.objectID + '">' +
           '  <div class="name pull-right">' + hit._highlightResult.name.value + '</div>' +
           '  <div class="screen_name pull-left">@' + hit._highlightResult.screen_name.value + '</div>' +
-          '  <div class="clearfix"></div>' +
-          '  <div class="followers_count text-right">' + hit.followers_count + ' follower' + (hit.followers_count > 1 ? 's' : '') + '</div>' +
-          '  <div class="description">' + (hit._highlightResult.description ? hit._highlightResult.description.value : '') + '</div>' +
+          '  <div class="clearfix"></div>';
+        if (hit.followers_count > 0) {
+          res += '  <div class="followers_count text-right">' + hit.followers_count + ' follower' + (hit.followers_count > 1 ? 's' : '') + '</div>';
+        }
+        res += '  <div class="description">' + (hit._highlightResult.description ? hit._highlightResult.description.value : '') + '</div>' +
           '</div>';
       }
       if (content.page === 0) {
