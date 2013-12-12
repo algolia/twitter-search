@@ -138,8 +138,8 @@
 
         // content
         res +=  '<div class="' + classes.join(' ') + '" data-id="' + hit.objectID + '">' +
-          '  <div class="screen_name pull-right">@' + hit._highlightResult.screen_name.value + '</div>' +
-          '  <div class="name pull-left">' + hit._highlightResult.name.value + '</div>' +
+          '  <div class="name pull-right">' + hit._highlightResult.name.value + '</div>' +
+          '  <div class="screen_name pull-left">@' + hit._highlightResult.screen_name.value + '</div>' +
           '  <div class="clearfix"></div>' +
           '  <div class="followers_count text-right">' + hit.followers_count + ' follower' + (hit.followers_count > 1 ? 's' : '') + '</div>' +
           '  <div class="description">' + (hit._highlightResult.description ? hit._highlightResult.description.value : '') + '</div>' +
