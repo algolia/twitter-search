@@ -1,4 +1,6 @@
 class Handle < ActiveRecord::Base
+  attr_protected
+
   include AlgoliaSearch
   algoliasearch per_environment: true, auto_index: false, auto_remove: false do
     attributesToIndex [:screen_name, :name, :description, :followers_count]
