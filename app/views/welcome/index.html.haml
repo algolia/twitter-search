@@ -2,6 +2,12 @@
   %h1.text-center
     Twitter Search
 
+  #social.hidden-xs
+    %iframe{id: "gh-fork", src: "http://ghbtns.com/github-btn.html?user=algolia&repo=twitter-search&type=fork", allowtransparency: "true", frameborder: "0", scrolling: "0", width: "53px", height: "20px"}
+    %iframe{id: "gh-start", src: "http://ghbtns.com/github-btn.html?user=algolia&repo=twitter-search&type=watch&count=true", allowtransparency: "true", frameborder: "0", scrolling: "0", width: "110px", height: "20px"}
+    %a.twitter-follow-button{href: "https://twitter.com/algolia", "data-show-count" => "false", "data-show-screen-name" => "true"}Follow @algolia
+    %a.twitter-share-button{href: "https://twitter.com/share", "data-url" => root_url, "data-via" => "algolia"} Tweet
+
   .search_box-wrapper
     .search_box
       %form#search-form{method: "get", action: '#', onsubmit: 'return false;'}
@@ -15,3 +21,4 @@
   $(document).ready(function() {
     new TwitterSearch('#{ENV['ALGOLIASEARCH_APPLICATION_ID']}', '#{ENV['ALGOLIASEARCH_API_KEY_RO']}', '#{Handle.index_name}');
   });
+  !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
