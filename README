@@ -1,7 +1,7 @@
 Twitter Search powered by Algolia
 ==================
 
-This is the Rails 4 application providing [Twitter Search](twittersearch.algolia.com). It's based on [algoliasearch-rails](https://github.com/algolia/algoliasearch-rails) and uses [Twitter's Streaming API](https://dev.twitter.com/docs/streaming-apis) to crawl new users.
+This is the Rails 4 application providing [Twitter Search](http://twittersearch.algolia.io). It's based on [algoliasearch-rails](https://github.com/algolia/algoliasearch-rails) and uses [Twitter's Streaming API](https://dev.twitter.com/docs/streaming-apis) to crawl new users.
 
 Configuration
 --------------
