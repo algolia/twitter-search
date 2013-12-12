@@ -6,6 +6,9 @@
     = stylesheet_link_tag "application", media: "all"
     = javascript_include_tag "application"
   %body
+    %span#forkongithub.hidden-xs
+      = link_to 'Fork me on GitHub', 'https://github.com/algolia/twitter-search', target: '_blank'
+
     %main#page{:role => "main"}
       = render 'layouts/messages'
       = yield
