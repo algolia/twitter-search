@@ -19,6 +19,7 @@ gem 'tweetstream'
 gem 'delayed_job_active_record'
 gem 'hidemyass', github: 'jassa/hidemyass'
 gem 'algoliasearch-rails'
+gem 'therubyracer'
 
 group :development do
   gem 'better_errors'
