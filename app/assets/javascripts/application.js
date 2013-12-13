@@ -16,6 +16,16 @@
 //= require algolia/algoliasearch.min
 //= require_tree .
 
+Number.prototype.number_with_delimiter = function(delimiter) {
+  var number = this + '', delimiter = delimiter || ',';
+  var split = number.split('.');
+  split[0] = split[0].replace(
+      /(\d)(?=(\d\d\d)+(?!\d))/g,
+      '$1' + delimiter
+  );
+  return split.join('.');
+};
+
 (function($) {
   window.TwitterSearch = function(applicationID, apiKey, indexName) {
     this.init(applicationID, apiKey, indexName);
@@ -142,7 +152,7 @@
           '  <div class="screen_name pull-left">@' + hit._highlightResult.screen_name.value + '</div>' +
           '  <div class="clearfix"></div>';
         if (hit.followers_count > 0) {
-          res += '  <div class="followers_count text-right">' + hit.followers_count + ' follower' + (hit.followers_count > 1 ? 's' : '') + '</div>';
+          res += '  <div class="followers_count text-right">' + hit.followers_count.number_with_delimiter() + ' follower' + (hit.followers_count > 1 ? 's' : '') + '</div>';
         }
         res += '  <div class="description">' + (hit._highlightResult.description ? hit._highlightResult.description.value : '') + '</div>' +
           '</div>';
