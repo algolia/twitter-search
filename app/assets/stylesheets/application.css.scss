@@ -186,6 +186,10 @@ h1, h2, h3, h4 {
 
       .description {
         font-style: italic;
+
+        em {
+          font-style: italic;
+        }
       }
     }
 
