@@ -10,7 +10,16 @@ class Handle < ActiveRecord::Base
   end
 
   def score
-    followers_count > 0 ? followers_count : mentions_count
+    return followers_count if followers_count > 0
+    if mentions_count < 10
+      mentions_count
+    elsif mentions_count < 100
+      mentions_count * 10
+    elsif mentions_count < 1000
+      mentions_count * 100
+    else
+      mentions_count * 1000
+    end
   end
 
   def self.create_from_status(status)
