@@ -102,7 +102,7 @@ Number.prototype.number_with_delimiter = function(delimiter) {
 
     goCurrent: function() {
       if (!this.currentHit) return;
-      window.location.href = 'http://news.ycombinator.com/item?id=' + this.currentHit.data('id');
+      window.location.href = 'https://twitter.com/' + this.currentHit.data('screen_name');
     },
 
     go: function(selectFunction) {
@@ -147,7 +147,7 @@ Number.prototype.number_with_delimiter = function(delimiter) {
         }
 
         // content
-        res +=  '<div class="' + classes.join(' ') + '" data-id="' + hit.objectID + '">' +
+        res +=  '<div class="' + classes.join(' ') + '" data-screen_name="' + hit.screen_name + '">' +
           '  <div class="name pull-right">' + hit._highlightResult.name.value + '</div>' +
           '  <div class="screen_name pull-left">@' + hit._highlightResult.screen_name.value + '</div>' +
           '  <div class="clearfix"></div>';
