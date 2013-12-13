@@ -150,11 +150,10 @@ Number.prototype.number_with_delimiter = function(delimiter) {
         res +=  '<div class="' + classes.join(' ') + '" data-screen_name="' + hit.screen_name + '">' +
           '  <div class="name pull-right">' + hit._highlightResult.name.value + '</div>' +
           '  <div class="screen_name pull-left">@' + hit._highlightResult.screen_name.value + '</div>' +
-          '  <div class="clearfix"></div>';
-        if (hit.followers_count > 0) {
-          res += '  <div class="followers_count text-right">' + hit.followers_count.number_with_delimiter() + ' follower' + (hit.followers_count > 1 ? 's' : '') + '</div>';
-        }
-        res += '  <div class="description">' + (hit._highlightResult.description ? hit._highlightResult.description.value : '') + '</div>' +
+          '  <div class="clearfix"></div>' +
+          '  <div class="followers_count pull-right"><a href="https://twitter.com/' + hit.screen_name + '" class="twitter-follow-button" data-show-count="true" data-lang="en" data-text="f">Follow @' + hit.screen_name + '</a></div>' +
+          '  <div class="description">' + (hit._highlightResult.description ? hit._highlightResult.description.value : '') + '</div>' +
+          '  <div class="clearfix"></div>' +
           '</div>';
       }
       if (content.page === 0) {
@@ -162,6 +161,7 @@ Number.prototype.number_with_delimiter = function(delimiter) {
       } else {
         this.$hits.append(res);
       }
+      twttr.widgets.load();
     }
 
   }
