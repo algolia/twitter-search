@@ -42,7 +42,7 @@ class Handle < ActiveRecord::Base
       consumer_secret: ENV['TWITTER_CONSUMER_SECRET'],
       oauth_token: ENV['TWITTER_OAUTH_KEY'],
       oauth_token_secret: ENV['TWITTER_OAUTH_SECRET']
-    Handle.where(followers_count: 0).where('mentions_count <= ?', min_mentions).limit(limit).each do |h|
+    Handle.where(followers_count: 0).where('mentions_count >= ?', min_mentions).limit(limit).each do |h|
       user = client.user(h.screen_name) rescue nil
       next if user.nil?
       puts h.screen_name
