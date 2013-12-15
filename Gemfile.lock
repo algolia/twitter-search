@@ -261,4 +261,5 @@ DEPENDENCIES
   therubyracer
   thin
   tweetstream
+  twitter
   uglifier (>= 1.3.0)
