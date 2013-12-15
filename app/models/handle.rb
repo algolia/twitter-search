@@ -48,6 +48,7 @@ class Handle < ActiveRecord::Base
       puts h.screen_name
       h.name = user.name
       h.followers_count = user.followers_count
+      h.description = (user.description || "")[0..255]
       h.save
     end
   end
