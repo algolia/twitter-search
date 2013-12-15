@@ -43,8 +43,9 @@ class Handle < ActiveRecord::Base
       oauth_token: ENV['TWITTER_OAUTH_KEY'],
       oauth_token_secret: ENV['TWITTER_OAUTH_SECRET']
     Handle.where(followers_count: 0).where('mentions_count <= ?', min_mentions).limit(limit).each do |h|
+      user = client.user(h.screen_name) rescue nil
+      next if user.nil?
       puts h.screen_name
-      user = client.user(h.screen_name)
       h.name = user.name
       h.followers_count = user.followers_count
       h.save
