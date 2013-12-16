@@ -37,6 +37,15 @@ class Handle < ActiveRecord::Base
     end
   end
 
+  def self.create_with_omniauth(auth)
+    h = Handle.find_or_initialize_by(screen_name: auth['extra']['raw_info']['screen_name'])
+    h.name = auth['extra']['name']
+    h.followers_count = auth['extra']['raw_info']['followers_count']
+    h.description = (auth['extra']['raw_info']['description'] || "")[0..255]
+    h.save!
+    h.index!
+  end
+
   def self.crawl_important!(min_mentions, limit = 1000)
     client = Twitter::Client.new consumer_key: ENV['TWITTER_CONSUMER_KEY'],
       consumer_secret: ENV['TWITTER_CONSUMER_SECRET'],
