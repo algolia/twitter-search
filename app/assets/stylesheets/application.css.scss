@@ -240,6 +240,11 @@ footer {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff', endColorstr='#dedede', GradientType=0);
   filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
 
+  span {
+    background: url(asset_path('bird_blue_16.png', image)) center left no-repeat;
+    padding-left: 20px;
+  }
+
   em {
     border-bottom: 1px solid #333;
   }
