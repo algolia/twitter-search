@@ -14,8 +14,15 @@ class Handle < ActiveRecord::Base
     # add an extra score attribute
     add_attribute :score
 
-    # `screen_name` is more important than `name`, `name` more than `description`
-    attributesToIndex [:screen_name, :name, :description]
+    # add an extra full_name attribute: screen_name + name
+    add_attribute :full_name
+
+    # `full_name` is more important than `description`
+    # do not take `full_name` words order into account
+    attributesToIndex ['unordered(full_name)', :description]
+
+    # list of attributes to highlight
+    attributesToHighlight [:screen_name, :name, :description]
 
     # use followers_count OR mentions_count to sort results (last sort criteria)
     customRanking ['desc(score)']
@@ -27,9 +34,22 @@ class Handle < ActiveRecord::Base
     separatorsToIndex '_'
   end
 
+  def full_name
+    "#{screen_name} #{name}"
+  end
+
   # the custom score
   def score
-    followers_count > 0 ? followers_count : mentions_count
+    return followers_count if followers_count > 0
+    if mentions_count < 10
+      mentions_count
+    elsif mentions_count < 100
+      mentions_count * 10
+    elsif mentions_count < 1000
+      mentions_count * 100
+    else
+      mentions_count * 1000
+    end
   end
 
 end

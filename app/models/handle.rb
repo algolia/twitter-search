@@ -4,9 +4,15 @@ class Handle < ActiveRecord::Base
   include AlgoliaSearch
   algoliasearch per_environment: true, auto_index: false, auto_remove: false do
     add_attribute :score
-    attributesToIndex [:screen_name, :name, :description]
+    add_attribute :full_name
+    attributesToIndex ['unordered(full_name)', :description]
+    attributesToHighlight [:screen_name, :name, :description]
     separatorsToIndex '_'
     customRanking ['desc(score)']
+  end
+
+  def full_name
+    "#{screen_name} #{name}"
   end
 
   def score
