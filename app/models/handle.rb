@@ -39,7 +39,7 @@ class Handle < ActiveRecord::Base
 
   def self.create_with_omniauth(auth)
     h = Handle.find_or_initialize_by(screen_name: auth['extra']['raw_info']['screen_name'])
-    h.name = auth['extra']['name']
+    h.name = auth['extra']['raw_info']['name']
     h.followers_count = auth['extra']['raw_info']['followers_count']
     h.description = (auth['extra']['raw_info']['description'] || "")[0..255]
     h.save!
