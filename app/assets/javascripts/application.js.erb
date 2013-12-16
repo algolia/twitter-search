@@ -148,7 +148,7 @@ Number.prototype.number_with_delimiter = function(delimiter) {
 
         // content
         res +=  '<div class="' + classes.join(' ') + '" data-screen_name="' + hit.screen_name + '">' +
-          '  <div class="name pull-right">' + hit._highlightResult.name.value + '</div>' +
+          '  <div class="name pull-right">' + (hit._highlightResult.name ? hit._highlightResult.name.value : '') + '</div>' +
           '  <div class="screen_name pull-left">@' + hit._highlightResult.screen_name.value + '</div>' +
           '  <div class="clearfix"></div>' +
           '  <div class="followers_count text-right">';
@@ -169,4 +169,3 @@ Number.prototype.number_with_delimiter = function(delimiter) {
 
   }
 })(jQuery);
-
