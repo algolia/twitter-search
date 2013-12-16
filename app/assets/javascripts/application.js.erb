@@ -148,15 +148,14 @@ Number.prototype.number_with_delimiter = function(delimiter) {
 
         // content
         res +=  '<div class="' + classes.join(' ') + '" data-screen_name="' + hit.screen_name + '">' +
-          '  <div class="name pull-right">' + (hit._highlightResult.name ? hit._highlightResult.name.value : '') + '</div>' +
-          '  <div class="screen_name pull-left">@' + hit._highlightResult.screen_name.value + '</div>' +
+          '  <div class="screen_name pull-right"><a class="btn btn-twitter" href="https://twitter.com/intent/user?screen_name=' + hit.screen_name + '" target="_blank"><img src="<%= image_path('bird_blue_16.png') %>" /> @' + hit._highlightResult.screen_name.value + '</a></div>' +
+          '  <div class="name pull-left">' + (hit._highlightResult.name ? hit._highlightResult.name.value : '') + '</div>' +
           '  <div class="clearfix"></div>' +
           '  <div class="followers_count text-right">';
         if (hit.followers_count > 0) {
           res += hit.followers_count.number_with_delimiter() + ' follower' + (hit.followers_count > 1 ? 's' : '');
         }
-        res += '    <a class="btn btn-mini btn-twitter text-small" href="https://twitter.com/intent/user?screen_name=' + hit.screen_name + '" target="_blank"><img src="<%= image_path('bird_blue_16.png') %>" /> Follow</a>' +
-          '  </div>' +
+        res += '  </div>' +
           '  <div class="description">' + (hit._highlightResult.description ? hit._highlightResult.description.value : '') + '</div>' +
           '</div>';
       }

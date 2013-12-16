@@ -239,4 +239,8 @@ footer {
   border-color: #ccc;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff', endColorstr='#dedede', GradientType=0);
   filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+
+  em {
+    border-bottom: 1px solid #333;
+  }
 }
