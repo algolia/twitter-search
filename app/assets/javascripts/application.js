@@ -156,7 +156,7 @@ Number.prototype.number_with_delimiter = function(delimiter) {
           res += hit.followers_count.number_with_delimiter() + ' follower' + (hit.followers_count > 1 ? 's' : '');
         }
         res += '  </div>' +
-          '  <div class="description">' + (hit._highlightResult.description ? hit._highlightResult.description.value : '') + '</div>' +
+          '  <div class="description">' + (hit.description || '') + '</div>' +
           '</div>';
       }
       if (content.page === 0) {
