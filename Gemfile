@@ -21,6 +21,7 @@ gem 'delayed_job_active_record'
 gem 'hidemyass', github: 'jassa/hidemyass'
 gem 'algoliasearch-rails'
 gem 'therubyracer'
+gem 'whenever'
 
 group :development do
   gem 'better_errors'
