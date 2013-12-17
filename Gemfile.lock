@@ -34,9 +34,9 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     addressable (2.3.5)
-    algoliasearch (1.1.14)
+    algoliasearch (1.1.15)
       curb
-    algoliasearch-rails (1.6.1)
+    algoliasearch-rails (1.6.2)
       algoliasearch (>= 1.1.7)
       json (>= 1.5.1)
     arel (4.0.1)
