@@ -25,7 +25,7 @@
   .text-center
     - cache 'handles_indexed', expires_in: 1.minute do
       %span.label.label-default= number_with_delimiter Handle.count
-      twitter handles have been indexed yet.
+      Twitter handles have been indexed so far.
       %div
         = link_to '#modal-add-yours', "data-toggle" => "modal" do
           %strong +
