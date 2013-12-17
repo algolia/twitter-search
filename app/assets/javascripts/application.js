@@ -80,6 +80,13 @@ Number.prototype.number_with_delimiter = function(delimiter) {
       var self = this;
       if (this.page === 0) {
         this.idx.search(query, function(success, content) {
+          if (!success) {
+            console.log(content);
+            return;
+          }
+          if (content.query.trim() != $('#inputfield input').val().trim()) {
+            return;
+          }
           if (self.page != 0) {
             return;
           }
@@ -89,6 +96,13 @@ Number.prototype.number_with_delimiter = function(delimiter) {
         }, { hitsPerPage: 1000, getRankingInfo: 1, numericFilters: ['followers_count>10000000'] });
       } else {
         this.idx.search(query, function(success, content) {
+          if (!success) {
+            console.log(content);
+            return;
+          }
+          if (content.query.trim() != $('#inputfield input').val().trim()) {
+            return;
+          }
           if (self.page != 0 && self.page >= content.page) {
             return;
           }
@@ -140,15 +154,6 @@ Number.prototype.number_with_delimiter = function(delimiter) {
     },
 
     searchCallback: function(top, success, content) {
-      if (!success) {
-        console.log(content);
-        return;
-      }
-
-      if (content.query.trim() != $('#inputfield input').val().trim()) {
-        return;
-      }
-
       var res = '';
       for (var i = 0; i < content.hits.length; ++i) {
         var hit = content.hits[i];
