@@ -21,7 +21,7 @@
           %input.autocomplete{autocomplete: 'off', placeholder: 'Twitter handle, name, profile description...', type: 'text', spellcheck: 'false'}
         .searchbutton
           %i.glyphicon.glyphicon-search
-        #hits  
+        #hits
   .text-center
     - cache 'handles_indexed', expires_in: 1.minute do
       %span.label.label-default= number_with_delimiter Handle.count

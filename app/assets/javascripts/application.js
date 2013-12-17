@@ -78,7 +78,24 @@ Number.prototype.number_with_delimiter = function(delimiter) {
       }
 
       var self = this;
-      this.idx.search(query, function(success, content) { self.searchCallback(success, content); }, { hitsPerPage: 25, page: p, getRankingInfo: 1 });
+      if (this.page === 0) {
+        this.idx.search(query, function(success, content) {
+          if (self.page != 0) {
+            return;
+          }
+          self.page = 1;
+          self.searchCallback(true, success, content);
+          self.idx.search(query, function(success, content) { self.searchCallback(false, success, content); }, { hitsPerPage: 25, page: p, getRankingInfo: 1, numericFilters: ['followers_count<=10000000'] });
+        }, { hitsPerPage: 1000, getRankingInfo: 1, numericFilters: ['followers_count>10000000'] });
+      } else {
+        this.idx.search(query, function(success, content) {
+          if (self.page != 0 && self.page >= content.page) {
+            return;
+          }
+          self.page = p;
+          self.searchCallback(false, success, content);
+        }, { hitsPerPage: 25, page: p, getRankingInfo: 1, numericFilters: ['followers_count<=10000000'] });
+      }
     },
 
     goLeft: function() {
@@ -122,7 +139,7 @@ Number.prototype.number_with_delimiter = function(delimiter) {
       return true;
     },
 
-    searchCallback: function(success, content) {
+    searchCallback: function(top, success, content) {
       if (!success) {
         console.log(content);
         return;
@@ -131,10 +148,7 @@ Number.prototype.number_with_delimiter = function(delimiter) {
       if (content.query.trim() != $('#inputfield input').val().trim()) {
         return;
       }
-      if (this.page != 0 && this.page >= content.page) {
-        return;
-      }
-      this.page = content.page;
+
       var res = '';
       for (var i = 0; i < content.hits.length; ++i) {
         var hit = content.hits[i];
@@ -144,6 +158,9 @@ Number.prototype.number_with_delimiter = function(delimiter) {
         /// cosmetics
         if ((i % 2) == 1) {
           classes.push('odd');
+        }
+        if (top) {
+         classes.push('top');
         }
 
         // content
@@ -159,7 +176,8 @@ Number.prototype.number_with_delimiter = function(delimiter) {
           '  <div class="description">' + (hit.description || '') + '</div>' +
           '</div>';
       }
-      if (content.page === 0) {
+
+      if (top) {
         this.$hits.html(res);
       } else {
         this.$hits.append(res);
