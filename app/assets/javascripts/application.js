@@ -35,7 +35,8 @@ Number.prototype.number_with_delimiter = function(delimiter) {
     init: function(applicationID, apiKey, indexName) {
       var self = this;
 
-      this.idx = new AlgoliaSearch(applicationID, apiKey).initIndex(indexName);
+      this.client = new AlgoliaSearch(applicationID, apiKey);
+      this.idx = this.client.initIndex(indexName);
       this.$hits = $('#hits');
       this.page = 0;
       this.currentHit = null;
@@ -77,39 +78,13 @@ Number.prototype.number_with_delimiter = function(delimiter) {
         return;
       }
 
-      var self = this;
+      this.client.startQueriesBatch();
       if (this.page === 0) {
-        this.idx.search(query, function(success, content) {
-          if (!success) {
-            console.log(content);
-            return;
-          }
-          if (content.query.trim() != $('#inputfield input').val().trim()) {
-            return;
-          }
-          if (self.page != 0) {
-            return;
-          }
-          self.page = 1;
-          self.searchCallback(true, success, content);
-          self.idx.search(query, function(success, content) { self.searchCallback(false, success, content); }, { hitsPerPage: 25, page: p, getRankingInfo: 1, numericFilters: ['followers_count<=10000000'] });
-        }, { hitsPerPage: 1000, getRankingInfo: 1, numericFilters: ['followers_count>10000000'] });
-      } else {
-        this.idx.search(query, function(success, content) {
-          if (!success) {
-            console.log(content);
-            return;
-          }
-          if (content.query.trim() != $('#inputfield input').val().trim()) {
-            return;
-          }
-          if (self.page != 0 && self.page >= content.page) {
-            return;
-          }
-          self.page = p;
-          self.searchCallback(false, success, content);
-        }, { hitsPerPage: 25, page: p, getRankingInfo: 1, numericFilters: ['followers_count<=10000000'] });
+        this.client.addQueryInBatch(this.idx.indexName, query, { hitsPerPage: 1000, page: p, getRankingInfo: 1, numericFilters: ["followers_count>10000000"] });
       }
+      this.client.addQueryInBatch(this.idx.indexName, query, { hitsPerPage: 25, page: p, getRankingInfo: 1, numericFilters: ["followers_count<=10000000"] });
+      var self = this;
+      this.client.sendQueriesBatch(function(success, content) { self.searchCallback(success, content); });
     },
 
     goLeft: function() {
@@ -153,36 +128,50 @@ Number.prototype.number_with_delimiter = function(delimiter) {
       return true;
     },
 
-    searchCallback: function(top, success, content) {
-      var res = '';
-      for (var i = 0; i < content.hits.length; ++i) {
-        var hit = content.hits[i];
-
-        // look & feel
-        var classes = ['hit'];
-        /// cosmetics
-        if ((i % 2) == 1) {
-          classes.push('odd');
-        }
-        if (top) {
-         classes.push('top');
-        }
-
-        // content
-        res +=  '<div class="' + classes.join(' ') + '" data-screen_name="' + hit.screen_name + '">' +
-          '  <div class="screen_name pull-right"><a class="btn btn-twitter" href="https://twitter.com/intent/user?screen_name=' + hit.screen_name + '" target="_blank"><span>@' + hit._highlightResult.screen_name.value + '</span></a></div>' +
-          '  <div class="name pull-left">' + (hit._highlightResult.name ? hit._highlightResult.name.value : '') + '</div>' +
-          '  <div class="clearfix"></div>' +
-          '  <div class="followers_count text-right">';
-        if (hit.followers_count > 0) {
-          res += hit.followers_count.number_with_delimiter() + ' follower' + (hit.followers_count > 1 ? 's' : '');
-        }
-        res += '  </div>' +
-          '  <div class="description">' + (hit.description || '') + '</div>' +
-          '</div>';
+    searchCallback: function(success, answer) {
+      if (!success) {
+        console.log(answer);
+        return;
       }
 
-      if (top) {
+      var page = this.page;
+      var res = '';
+      for (var j = 0; j < answer.results.length; ++j) {
+        var content = answer.results[j];
+        if (j === 0) {
+          if (content.query.trim() != $('#inputfield input').val().trim()) {
+            return;
+          }
+          if (this.page != 0 && this.page >= content.page) {
+            return;
+          }
+          this.page = content.page;
+        }
+        for (var i = 0; i < content.hits.length; ++i) {
+          var hit = content.hits[i];
+
+          // look & feel
+          var classes = ['hit'];
+          /// cosmetics
+          if ((i % 2) == 1) {
+            classes.push('odd');
+          }
+
+          // content
+          res +=  '<div class="' + classes.join(' ') + '" data-screen_name="' + hit.screen_name + '">' +
+            '  <div class="screen_name pull-right"><a class="btn btn-twitter" href="https://twitter.com/intent/user?screen_name=' + hit.screen_name + '" target="_blank"><span>@' + hit._highlightResult.screen_name.value + '</span></a></div>' +
+            '  <div class="name pull-left">' + (hit._highlightResult.name ? hit._highlightResult.name.value : '') + '</div>' +
+            '  <div class="clearfix"></div>' +
+            '  <div class="followers_count text-right">';
+          if (hit.followers_count > 0) {
+            res += hit.followers_count.number_with_delimiter() + ' follower' + (hit.followers_count > 1 ? 's' : '');
+          }
+          res += '  </div>' +
+            '  <div class="description">' + (hit.description || '') + '</div>' +
+            '</div>';
+        }
+      }
+      if (page === 0) {
         this.$hits.html(res);
       } else {
         this.$hits.append(res);
