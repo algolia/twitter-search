@@ -55,3 +55,24 @@ set :rvm_ruby_string, 'ruby-2.0.0-p353'
 set :whenever_command, "bundle exec whenever"
 set :whenever_roles, [:cron]
 require "whenever/capistrano"
+
+# crawler
+namespace :crawler do
+  desc "Start crawler"
+  task :start, :roles => :cron do
+    run "cd #{current_path} && RAILS_ENV=#{rails_env} ./bin/crawler start"
+  end
+
+  desc "Stop crawler"
+  task :stop, :roles => :cron do
+    run "cd #{current_path} && RAILS_ENV=#{rails_env} ./bin/crawler stop"
+  end
+
+  desc "Restart crawler"
+  task :restart, :roles => :cron do
+    run "cd #{current_path} && RAILS_ENV=#{rails_env} ./bin/crawler restart"
+  end
+end
+after "deploy:start", "crawler:start"
+after "deploy:stop", "crawler:stop"
+after "deploy:restart", "crawler:restart"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131212232111) do
+ActiveRecord::Schema.define(version: 20131218095927) do
 
   create_table "delayed_jobs", force: true do |t|
     t.integer  "priority",   default: 0, null: false
@@ -30,11 +30,12 @@ ActiveRecord::Schema.define(version: 20131212232111) do
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
 
   create_table "handles", force: true do |t|
-    t.string  "screen_name",     limit: 32,             null: false
-    t.string  "name",            limit: 32
-    t.string  "description"
-    t.integer "followers_count",            default: 0, null: false
-    t.integer "mentions_count",             default: 0, null: false
+    t.string   "screen_name",     limit: 32,             null: false
+    t.string   "name",            limit: 32
+    t.string   "description"
+    t.integer  "followers_count",            default: 0, null: false
+    t.integer  "mentions_count",             default: 0, null: false
+    t.datetime "updated_at"
   end
 
   add_index "handles", ["screen_name"], name: "index_handles_on_screen_name", unique: true

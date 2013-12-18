@@ -33,9 +33,11 @@ class Handle < ActiveRecord::Base
     h.name = status.user.name
     h.description = (status.user.description || "")[0..255]
     h.followers_count = status.user.followers_count
+    h.updated_at ||= DateTime.now
     h.save
     status.user_mentions.each do |mention|
       m = Handle.find_or_initialize_by(screen_name: mention.screen_name)
+      m.updated_at ||= DateTime.now
       m.name = mention.name
       m.mentions_count ||= 0
       m.mentions_count += 1
@@ -48,6 +50,7 @@ class Handle < ActiveRecord::Base
     h.name = auth['extra']['raw_info']['name']
     h.followers_count = auth['extra']['raw_info']['followers_count']
     h.description = (auth['extra']['raw_info']['description'] || "")[0..255]
+    h.updated_at ||= DateTime.now
     h.save!
     h.index!
   end
@@ -64,6 +67,7 @@ class Handle < ActiveRecord::Base
       h.name = user.name
       h.followers_count = user.followers_count
       h.description = (user.description || "")[0..255]
+      h.updated_at ||= DateTime.now
       h.save
     end
   end
