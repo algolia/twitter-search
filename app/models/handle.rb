@@ -56,10 +56,7 @@ class Handle < ActiveRecord::Base
   end
 
   def self.crawl_important!(min_mentions, limit = 1000)
-    client = Twitter::Client.new consumer_key: ENV['TWITTER_CONSUMER_KEY'],
-      consumer_secret: ENV['TWITTER_CONSUMER_SECRET'],
-      oauth_token: ENV['TWITTER_OAUTH_KEY'],
-      oauth_token_secret: ENV['TWITTER_OAUTH_SECRET']
+    client = Twitter::Client.new consumer_key: ENV['TWITTER_CONSUMER_KEY'], consumer_secret: ENV['TWITTER_CONSUMER_SECRET']
     Handle.where(followers_count: 0).where('mentions_count >= ?', min_mentions).order('id DESC').limit(limit).each do |h|
       user = client.user(h.screen_name) rescue nil
       next if user.nil?
