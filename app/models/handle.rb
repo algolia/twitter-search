@@ -28,13 +28,19 @@ class Handle < ActiveRecord::Base
     end
   end
 
-  def self.create_from_status(status)
-    h = Handle.find_or_initialize_by(screen_name: status.user.screen_name)
-    h.name = status.user.name
-    h.description = (status.user.description || "")[0..255]
-    h.followers_count = status.user.followers_count
+  def self.create_from_user(user)
+    h = Handle.find_or_initialize_by(screen_name: user.screen_name)
+    puts h.screen_name if h.new_record?
+    h.name = user.name
+    h.description = (user.description || "")[0..255]
+    h.followers_count = user.followers_count
     h.updated_at ||= DateTime.now
     h.save
+    h
+  end
+
+  def self.create_from_status(status)
+    Handle.create_from_user(status.user)
     status.user_mentions.each do |mention|
       m = Handle.find_or_initialize_by(screen_name: mention.screen_name)
       m.updated_at ||= DateTime.now
@@ -60,12 +66,7 @@ class Handle < ActiveRecord::Base
     Handle.where(followers_count: 0).where('mentions_count >= ?', min_mentions).order('id DESC').limit(limit).each do |h|
       user = client.user(h.screen_name) rescue nil
       next if user.nil?
-      puts h.screen_name
-      h.name = user.name
-      h.followers_count = user.followers_count
-      h.description = (user.description || "")[0..255]
-      h.updated_at ||= DateTime.now
-      h.save
+      Handle.create_from_user(user)
     end
   end
 
