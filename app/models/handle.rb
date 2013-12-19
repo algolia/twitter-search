@@ -57,8 +57,14 @@ class Handle < ActiveRecord::Base
     h.followers_count = auth['extra']['raw_info']['followers_count']
     h.description = (auth['extra']['raw_info']['description'] || "")[0..255]
     h.updated_at ||= DateTime.now
-    h.save!
-    h.index!
+    h.save
+    ids = [h.id]
+    friends = Twitter::Client.new(consumer_key: ENV['TWITTER_CONSUMER_KEY'], consumer_secret: ENV['TWITTER_CONSUMER_SECRET'],
+      oauth_token: auth['credentials']['token'], oauth_token_secret: auth['credentials']['secret']).friends.all rescue []
+    friends.each do |u|
+      ids << Handle.create_from_user(u).id
+    end
+    Handle.where(id: ids).reindex!
   end
 
   def self.crawl_important!(min_mentions, limit = 1000)
