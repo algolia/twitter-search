@@ -12,21 +12,6 @@
  *= require_self
  */
 
-@font-face {
-  font-family: 'Ubuntu';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Ubuntu'), url(https://themes.googleusercontent.com/static/fonts/ubuntu/v4/vRvZYZlUaogOuHbBTT1SNevvDin1pK8aKteLpeZ5c0A.woff) format('woff');
-}
-
-html, body, main {
-  font-family: 'Ubuntu', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  text-rendering: optimizeLegibility;
-  font-weight: 300;
-  color: white;
-  font-size: 16px;
-}
-
 html {
   background: #002131 url('https://abs.twimg.com/images/themes/theme15/bg.png') top left no-repeat;
 }
@@ -40,6 +25,19 @@ h1, h2, h3, h4 {
   text-transform: uppercase;
   font-weight: bold;
   color: white;
+}
+
+h1 {
+  font-size: 2.2em;
+}
+h2 {
+  font-size: 1.85em;
+}
+h3 {
+  font-size: 1.5em;
+}
+h4 {
+  font-size: 1.15em;
 }
 
 .modal-content, .modal-content h1, .modal-content h3, .modal-content h3, .modal-content h4 {
@@ -172,7 +170,7 @@ h1, h2, h3, h4 {
     .hit {
       background-color: #ffffff;
       background-color: rgb(255, 255, 255);
-      font-size: 14px;
+      font-size: 0.9em;
       padding: 5px 10px;
       margin-bottom: 5px;
 
@@ -217,7 +215,7 @@ h1, h2, h3, h4 {
 footer {
   margin-top: 50px;
   z-index: 1;
-  font-size: 12px;
+  font-size: 0.8em;
   color: #ccc;
 
   hr {

@@ -1,10 +1,38 @@
 // import the CSS framework
 @import "bootstrap";
 
-.btn-mini {
-  padding: 3px 6px;
-  font-size: 10px;
-  line-height: 16px;
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Ubuntu'), url(https://themes.googleusercontent.com/static/fonts/ubuntu/v4/vRvZYZlUaogOuHbBTT1SNevvDin1pK8aKteLpeZ5c0A.woff) format('woff');
+}
+
+html, body, main {
+  font-family: 'Ubuntu', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  text-rendering: optimizeLegibility;
+  font-weight: 300;
+  color: white;
+  font-size: 16px;
+}
+
+@media (max-width: $screen-sm) {
+  html, body, main {
+    font-size: 13px;
+  }
+
+  #search-panel {
+    padding-top: 0px !important;
+  }
+
+  #hits {
+    margin-right: 0px !important;
+
+    .btn {
+      font-size: 0.6em;
+      line-height: 0.8em;
+    }
+  }
 }
 
 main {
