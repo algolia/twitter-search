@@ -134,7 +134,6 @@ Number.prototype.number_with_delimiter = function(delimiter) {
         return;
       }
 
-      var page = this.page;
       var res = '';
       for (var j = 0; j < answer.results.length; ++j) {
         var content = answer.results[j];
@@ -171,7 +170,7 @@ Number.prototype.number_with_delimiter = function(delimiter) {
             '</div>';
         }
       }
-      if (page === 0) {
+      if (this.page === 0) {
         this.$hits.html(res);
       } else {
         this.$hits.append(res);
