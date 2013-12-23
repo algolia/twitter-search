@@ -81,9 +81,9 @@ Number.prototype.number_with_delimiter = function(delimiter) {
       this.client.startQueriesBatch();
       if (this.page === 0) {
         // top-users query, disable 2-typos
-        this.client.addQueryInBatch(this.idx.indexName, query, { hitsPerPage: 1000, page: p, getRankingInfo: 0, numericFilters: ["followers_count>10000000"], minWordSizefor2Typos: 100 });
+        this.client.addQueryInBatch(this.idx.indexName, query, { hitsPerPage: 1000, tagFilters: ["top"], minWordSizefor2Typos: 100 });
       }
-      this.client.addQueryInBatch(this.idx.indexName, query, { hitsPerPage: 25, page: p, getRankingInfo: 0, numericFilters: ["followers_count<=10000000"] });
+      this.client.addQueryInBatch(this.idx.indexName, query, { hitsPerPage: 25, page: p });
       var self = this;
       this.client.sendQueriesBatch(function(success, content) { self.searchCallback(success, content); });
     },
@@ -136,6 +136,7 @@ Number.prototype.number_with_delimiter = function(delimiter) {
       }
 
       var res = '';
+      var ids = {};
       for (var j = 0; j < answer.results.length; ++j) {
         var content = answer.results[j];
         if (j === 0) {
@@ -149,6 +150,10 @@ Number.prototype.number_with_delimiter = function(delimiter) {
         }
         for (var i = 0; i < content.hits.length; ++i) {
           var hit = content.hits[i];
+          if (hit.objectID in ids) {
+            continue;
+          }
+          ids[hit.objectID] = true;
 
           // look & feel
           var classes = ['hit'];

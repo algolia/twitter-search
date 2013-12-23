@@ -5,10 +5,13 @@ class Handle < ActiveRecord::Base
   algoliasearch per_environment: true, auto_index: false, auto_remove: false do
     add_attribute :score
     add_attribute :full_name
-    attributesToIndex ['unordered(full_name)', :description, :followers_count]
+    attributesToIndex ['unordered(full_name)', :description]
     attributesToHighlight [:screen_name, :name, :description]
     separatorsToIndex '_'
     customRanking ['desc(score)']
+    tags do
+      followers_count > 10000000 ? ['top'] : []
+    end
   end
 
   def full_name
