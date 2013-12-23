@@ -18,7 +18,7 @@ class Handle < ActiveRecord::Base
     add_attribute :full_name
 
     # do not take `full_name`'s words order into account, `full_name` is more important than `description`
-    attributesToIndex ['unordered(full_name)', :description, :followers_count]
+    attributesToIndex ['unordered(full_name)', :description]
 
     # list of attributes to highlight
     attributesToHighlight [:screen_name, :name, :description]
@@ -26,11 +26,13 @@ class Handle < ActiveRecord::Base
     # use followers_count OR mentions_count to sort results (last sort criteria)
     customRanking ['desc(score)']
 
-    # perform prefix matching on all words
-    queryType 'prefixAll'
-
     # @I_love_you
     separatorsToIndex '_'
+
+    # tag top-users
+    tags do
+      followers_count > 10000000 ? ['top'] : []
+    end
   end
 
   def full_name
