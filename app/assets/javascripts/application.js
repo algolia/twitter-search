@@ -165,8 +165,9 @@ Number.prototype.number_with_delimiter = function(delimiter) {
           if (hit.followers_count > 0) {
             res += hit.followers_count.number_with_delimiter() + ' follower' + (hit.followers_count > 1 ? 's' : '');
           }
+          console.log(hit);
           res += '  </div>' +
-            '  <div class="description">' + (hit.description || '') + '</div>' +
+            '  <div class="description">' + (hit._highlightResult.description ? hit._highlightResult.description.value : '') + '</div>' +
             '</div>';
         }
       }

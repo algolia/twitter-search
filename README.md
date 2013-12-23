@@ -17,11 +17,11 @@ class Handle < ActiveRecord::Base
     # add an extra full_name attribute: screen_name + name
     add_attribute :full_name
 
-    # do not take `full_name`'s words order into account
-    attributesToIndex ['unordered(full_name)', :followers_count]
+    # do not take `full_name`'s words order into account, `full_name` is more important than `description`
+    attributesToIndex ['unordered(full_name)', :description, :followers_count]
 
     # list of attributes to highlight
-    attributesToHighlight [:screen_name, :name]
+    attributesToHighlight [:screen_name, :name, :description]
 
     # use followers_count OR mentions_count to sort results (last sort criteria)
     customRanking ['desc(score)']
