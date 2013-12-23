@@ -80,9 +80,10 @@ Number.prototype.number_with_delimiter = function(delimiter) {
 
       this.client.startQueriesBatch();
       if (this.page === 0) {
-        this.client.addQueryInBatch(this.idx.indexName, query, { hitsPerPage: 1000, page: p, getRankingInfo: 1, numericFilters: ["followers_count>10000000"] });
+        // top-users query, disable 2-typos
+        this.client.addQueryInBatch(this.idx.indexName, query, { hitsPerPage: 1000, page: p, getRankingInfo: 0, numericFilters: ["followers_count>10000000"], minWordSizefor2Typos: 100 });
       }
-      this.client.addQueryInBatch(this.idx.indexName, query, { hitsPerPage: 25, page: p, getRankingInfo: 1, numericFilters: ["followers_count<=10000000"] });
+      this.client.addQueryInBatch(this.idx.indexName, query, { hitsPerPage: 25, page: p, getRankingInfo: 0, numericFilters: ["followers_count<=10000000"] });
       var self = this;
       this.client.sendQueriesBatch(function(success, content) { self.searchCallback(success, content); });
     },
