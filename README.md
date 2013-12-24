@@ -55,3 +55,26 @@ class Handle < ActiveRecord::Base
 
 end
 ```
+
+Setup
+========
+
+Installation
+--------------
+An [Algolia](http://www.algolia.com) account is required to test it.
+
+* ```git clone https://github.com/algolia/twitter-search.git```
+*  ```bundle install```
+*  Setup your ```config/database.yml```
+*  ```bundle exec rake db:migrate```
+
+Start crawling
+--------------------------------------
+*  Create your ```config/application.yml``` based on ```config/application.example.yml``` with your [Algolia](http://www.algolia.com) and [Twitter](https://twitter.com) credentials
+*  Run ```./bin/crawler run``` to start a foreground crawler
+*  And periodically run ```rails runner Handle.reindex!``` to index crawled Handles
+
+Start the application
+---------------------
+*  ```bundle exec rails server```
+*  Enjoy your ```http://localhost:3000``` Twitter Handles search!
