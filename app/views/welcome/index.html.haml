@@ -4,9 +4,9 @@
 
   #tagline
     %p
-      Twitter handles search that
-      %span.label.label-success just
-      works.
+      Twitter Handles search like you
+      %span.label.label-success expected
+      it to be.
 
   #social.hidden-xs
     %iframe{id: "gh-fork", src: "http://ghbtns.com/github-btn.html?user=algolia&repo=twitter-search&type=fork", allowtransparency: "true", frameborder: "0", scrolling: "0", width: "53px", height: "20px"}
@@ -25,7 +25,7 @@
   .text-center
     - cache 'handles_indexed', expires_in: 15.minute do
       %span.label.label-default= number_with_delimiter Handle.count
-      Twitter handles have been indexed so far.
+      Twitter Handles have been indexed so far.
       %div
         = link_to '#modal-add-yours', "data-toggle" => "modal" do
           %strong +
