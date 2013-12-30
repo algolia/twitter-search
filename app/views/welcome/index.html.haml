@@ -24,7 +24,7 @@
         #hits
   .text-center
     - cache 'handles_indexed', expires_in: 15.minute do
-      %span.label.label-default= number_with_delimiter Handle.count
+      %span.label.label-default= number_with_delimiter Handle.select('MAX(id) AS max_id').first.max_id
       Twitter Handles have been indexed so far.
       %div
         = link_to '#modal-add-yours', "data-toggle" => "modal" do
