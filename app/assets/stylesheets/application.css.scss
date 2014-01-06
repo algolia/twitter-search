@@ -55,7 +55,11 @@ h4 {
 
 #tagline {
   margin-top: 20px;
-  text-align: center
+  text-align: center;
+
+  a {
+    color: white;
+  }
 }
 
 #social {
