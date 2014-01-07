@@ -35,7 +35,7 @@ Number.prototype.number_with_delimiter = function(delimiter) {
     init: function(applicationID, apiKey, indexName) {
       var self = this;
 
-      this.client = new AlgoliaSearch(applicationID, apiKey);
+      this.client = new AlgoliaSearch(applicationID, apiKey, null, true, [applicationID + '-2.algolia.io', applicationID + '-3.algolia.io']);
       this.idx = this.client.initIndex(indexName);
       this.$hits = $('#hits');
       this.page = 0;
