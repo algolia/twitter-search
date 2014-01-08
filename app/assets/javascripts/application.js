@@ -81,7 +81,7 @@ Number.prototype.number_with_delimiter = function(delimiter) {
       this.client.startQueriesBatch();
       if (this.page === 0) {
         // top-users query, disable 2-typos
-        this.client.addQueryInBatch(this.idx.indexName, query, { hitsPerPage: 1000, tagFilters: ["top"], minWordSizefor2Typos: 100 });
+        this.client.addQueryInBatch(this.idx.indexName, query, { hitsPerPage: 1000, tagFilters: ["top"], minWordSizefor2Typos: 100, getRankingInfo: 1 });
       }
       this.client.addQueryInBatch(this.idx.indexName, query, { hitsPerPage: 25, page: p });
       var self = this;
@@ -154,6 +154,11 @@ Number.prototype.number_with_delimiter = function(delimiter) {
             continue;
           }
           ids[hit.objectID] = true;
+
+          // skip top-users with typo and description match only
+          if (j === 0 && answer.results.length === 2 && hit._rankingInfo.nbTypos > 0 && hit._highlightResult.description.matchedWords.length > 0 && hit._highlightResult.screen_name.matchedWords.length === 0 && hit._highlightResult.name.matchedWords.length === 0) {
+            continue;
+          }
 
           // look & feel
           var classes = ['hit'];
