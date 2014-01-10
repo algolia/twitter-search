@@ -81,7 +81,7 @@ Number.prototype.number_with_delimiter = function(delimiter) {
       this.client.startQueriesBatch();
       if (this.page === 0) {
         // top-users query, disable 2-typos
-        this.client.addQueryInBatch(this.idx.indexName, query, { hitsPerPage: 1000, tagFilters: ["top"], minWordSizefor2Typos: 100, getRankingInfo: 1 });
+        this.client.addQueryInBatch(this.idx.indexName, query, { hitsPerPage: 1000, tagFilters: ["top"], minWordSizefor2Typos: 100, getRankingInfo: 1, minWordSizefor1Typo: 4 });
       }
       this.client.addQueryInBatch(this.idx.indexName, query, { hitsPerPage: 25, page: p });
       var self = this;
