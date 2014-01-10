@@ -36,7 +36,7 @@ class Handle < ActiveRecord::Base
   end
 
   def full_name
-    "#{screen_name} #{name}"
+    [ screen_name, name ]
   end
 
   # the custom score

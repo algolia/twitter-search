@@ -15,7 +15,8 @@ class Handle < ActiveRecord::Base
   end
 
   def full_name
-    "#{screen_name} #{name}"
+    # consider screen_name and name equal
+    [ screen_name, name ]
   end
 
   def score
