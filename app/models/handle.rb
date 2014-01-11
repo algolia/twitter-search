@@ -5,7 +5,7 @@ class Handle < ActiveRecord::Base
   algoliasearch per_environment: true, auto_index: false, auto_remove: false do
     add_attribute :score
     add_attribute :full_name
-    attributesToIndex ['unordered(full_name)', :description]
+    attributesToIndex ['unordered(full_name)', :screen_name, :description]
     attributesToHighlight [:screen_name, :name, :description]
     separatorsToIndex '_'
     customRanking ['desc(score)']
@@ -16,7 +16,7 @@ class Handle < ActiveRecord::Base
 
   def full_name
     # consider screen_name and name equal
-    [ screen_name, name ]
+    "#{screen_name} #{name}"
   end
 
   def score
