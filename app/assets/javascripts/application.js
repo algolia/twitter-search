@@ -160,6 +160,11 @@ Number.prototype.number_with_delimiter = function(delimiter) {
             continue;
           }
 
+          // skip top-users with description match only and query of 1 letter
+          if (j === 0 && answer.results.length === 2 && content.query.length === 1 && hit._highlightResult.description.matchedWords.length > 0 && hit._highlightResult.screen_name.matchedWords.length === 0 && hit._highlightResult.name.matchedWords.length === 0) {
+            continue;
+          }
+
           // look & feel
           var classes = ['hit'];
           /// cosmetics
