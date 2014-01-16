@@ -81,4 +81,14 @@ class Handle < ActiveRecord::Base
     end
   end
 
+  def self.create_from_screen_name(screen_name)
+    client = Twitter::Client.new consumer_key: ENV['TWITTER_CONSUMER_KEY'], consumer_secret: ENV['TWITTER_CONSUMER_SECRET']
+    h = Handle.create_from_user client.user(screen_name)
+    ids = [h.id]
+    (client.friends(screen_name).all rescue []).each do |u|
+      ids << Handle.create_from_user(u).id
+    end
+    Handle.where(id: ids).reindex!
+  end
+
 end
